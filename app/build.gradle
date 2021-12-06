@@ -2,7 +2,6 @@ plugins {
     id 'com.android.application'
     id 'androidx.navigation.safeargs'
 }
-
 android {
     compileSdk 31
 
@@ -12,10 +11,8 @@ android {
         targetSdk 31
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -42,10 +39,24 @@ dependencies {
     //retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.9.0'
+    //rxjava
+    // RxJava
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.9'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     //navigation
     implementation 'androidx.navigation:navigation-ui:2.4.0-beta02'
     implementation 'androidx.navigation:navigation-fragment:2.4.0-beta02'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+     // circleview
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
+    //room
+   // def room_version = "2.3.0"
+    implementation "androidx.room:room-runtime:2.3.0"
+    annotationProcessor "androidx.room:room-compiler:2.3.0"
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

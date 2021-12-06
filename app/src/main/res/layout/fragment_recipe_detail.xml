@@ -5,28 +5,75 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.RecipeDetailFragment">
+    <ImageView
+        app:civ_border_color="@color/purple_700"
+        app:civ_border_width="1dp"
+        android:id="@+id/img_dog"
+        android:layout_width="370dp"
+        android:layout_height="179dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/backgrounds/scenic" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_details"
-        android:layout_width="wrap_content"
+    <TextView
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:id="@+id/tv_dogname"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="50dp"
-        android:clickable="true"
-        android:src="@android:drawable/presence_audio_busy"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="16dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_dog" />
 
     <TextView
         android:gravity="center"
-        android:id="@+id/textView2"
-        android:layout_width="177dp"
-        android:layout_height="80dp"
-        android:textSize="30dp"
-        android:textColor="@color/purple_700"
-        android:text="Detail fragment"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="14sp"
+        android:id="@+id/tv_dog_purpose"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/tv_temperment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_dogname" />
+
+    <TextView
+        android:gravity="center"
+        android:textSize="14sp"
+        android:id="@+id/tv_temperment"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_dog_purpose" />
+
+    <TextView
+        android:gravity="center"
+        android:textSize="14sp"
+        android:id="@+id/tv_doglifespan"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_temperment" />
 </androidx.constraintlayout.widget.ConstraintLayout>
