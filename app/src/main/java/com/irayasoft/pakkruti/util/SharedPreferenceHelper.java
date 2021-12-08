@@ -13,7 +13,6 @@ public class SharedPreferenceHelper {
     public SharedPreferenceHelper(Context context) {
         sharedPreferences= PreferenceManager.getDefaultSharedPreferences(context);
     }
-
     public static  SharedPreferenceHelper getInstance(Context context){
         if(INSTANCE==null){
             INSTANCE=new SharedPreferenceHelper(context);
@@ -29,5 +28,9 @@ public class SharedPreferenceHelper {
     public Long getUpdatedTime(){
         return sharedPreferences.getLong(PREF_TIME,0);
 
+    }
+    //setting preference
+    public String getCacheDuration(){
+        return sharedPreferences.getString("Pref_cache_duration","0");
     }
 }

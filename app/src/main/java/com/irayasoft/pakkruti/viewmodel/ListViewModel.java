@@ -15,6 +15,7 @@ import com.irayasoft.pakkruti.model.DogBreed;
 import com.irayasoft.pakkruti.model.database.DogDao;
 import com.irayasoft.pakkruti.model.database.DogDatabase;
 import com.irayasoft.pakkruti.model.network.RetrofitService;
+import com.irayasoft.pakkruti.util.NotificationHelper;
 import com.irayasoft.pakkruti.util.SharedPreferenceHelper;
 
 import java.util.ArrayList;
@@ -36,22 +37,25 @@ public class ListViewModel extends AndroidViewModel {
     private CompositeDisposable disposable = new CompositeDisposable();
     //AsyncTask
     AsyncTask<List<DogBreed>, Void, List<DogBreed>> insertTask;
-    AsyncTask<Void,Void,List<DogBreed>> retrieveTask;
-    private SharedPreferenceHelper sharedPreferenceHelper=SharedPreferenceHelper.getInstance(getApplication());
-    private  long refresh_time=5*60*1000*1000*1000L;
+    AsyncTask<Void, Void, List<DogBreed>> retrieveTask;
+    private SharedPreferenceHelper sharedPreferenceHelper = SharedPreferenceHelper.getInstance(getApplication());
+    private long refresh_time = 5 * 60 * 1000 * 1000 * 1000L;
+
     public ListViewModel(@NonNull Application application) {
         super(application);
     }
+
     //managing refresh rate
     public void refresh() {
+        //setting Cache Duration
+        checkCacheDurations();
         //cache time logic
-        Long updateTime= sharedPreferenceHelper.getUpdatedTime();
-        Long currentTime=System.nanoTime();
-        if(updateTime!=0  && currentTime-updateTime<refresh_time){
+        Long updateTime = sharedPreferenceHelper.getUpdatedTime();
+        Long currentTime = System.nanoTime();
+        if (updateTime != 0 && currentTime - updateTime < refresh_time) {
             fetchFromDatabase();
-        }
-        else {
-           fetchFromRemote();
+        } else {
+            fetchFromRemote();
         }
         // raw data if web api not available
 //        Log.d(TAG, "refresh: ");
@@ -72,24 +76,39 @@ public class ListViewModel extends AndroidViewModel {
 
     }
 
+    // cache setting
+    private void checkCacheDurations() {
+        String cachePreference= sharedPreferenceHelper.getCacheDuration();
+        if(!cachePreference.equals("")){
+            try{
+                int cachePreferenceInt=Integer.parseInt(cachePreference);
+                refresh_time=cachePreferenceInt*1000*1000*1000L;
+            }catch (NumberFormatException e){
+                e.printStackTrace();
+
+            }
+
+
+        }
+    }
+
 
     //managing refresh bypass cache
-    public void refreshBypassCache(){
+    public void refreshBypassCache() {
         fetchFromRemote();
     }
+
     //fetchfrom Database
     private void fetchFromDatabase() {
-      loading.setValue(true);
-      retrieveTask=new RetrieveDogsTask();
-      retrieveTask.execute();
+        loading.setValue(true);
+        retrieveTask = new RetrieveDogsTask();
+        retrieveTask.execute();
     }
-
 
 
     private void fetchFromRemote() {
         //initially for any api call it shows loading
         loading.setValue(true);
-
         retrofitService.getDogs().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<List<DogBreed>>() {
@@ -103,9 +122,13 @@ public class ListViewModel extends AndroidViewModel {
 //                        loading.setValue(false);
                         insertTask = new InserDogTask();
                         insertTask.execute(dogBreeds);
-                        Toast.makeText(getApplication(), "dog retrived from network",
+                        //calling notification
+                        NotificationHelper.getInstance(getApplication()).createNotification();
+                        Toast.makeText(getApplication(), "dog retrived from network not",
                                 Toast.LENGTH_LONG).show();
+
                     }
+
                     @Override
                     public void onError(@NonNull Throwable e) {
                         dogLoadError.setValue(true);
@@ -116,7 +139,7 @@ public class ListViewModel extends AndroidViewModel {
     }
 
     private void dogsRetrieved(List<DogBreed> dogBreeds) {
-        Log.d(TAG, "dogsRetrieved: "+dogBreeds.size());
+        Log.d(TAG, "dogsRetrieved: " + dogBreeds.size());
         dogs.setValue(dogBreeds);
         dogLoadError.setValue(false);
         loading.setValue(false);
@@ -137,6 +160,7 @@ public class ListViewModel extends AndroidViewModel {
             retrieveTask = null;
         }
     }
+
     //AsyncTask to process database
     //*******insertTask
     private class InserDogTask extends AsyncTask<List<DogBreed>, Void, List<DogBreed>> {
@@ -151,8 +175,7 @@ public class ListViewModel extends AndroidViewModel {
             //logic to set uuid
 
             int i = 0;
-            while (i < list.size())
-            {
+            while (i < list.size()) {
                 list.get(i).uuid = result.get(i).intValue();
                 ++i;
             }
@@ -167,8 +190,9 @@ public class ListViewModel extends AndroidViewModel {
 
         }
     }
+
     //retrieve task
-    private class RetrieveDogsTask extends AsyncTask<Void,Void,List<DogBreed>>{
+    private class RetrieveDogsTask extends AsyncTask<Void, Void, List<DogBreed>> {
 
         @Override
         protected List<DogBreed> doInBackground(Void... voids) {

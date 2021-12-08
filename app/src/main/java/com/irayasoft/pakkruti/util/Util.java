@@ -1,13 +1,15 @@
 package com.irayasoft.pakkruti.util;
 import android.content.Context;
 import android.widget.ImageView;
+
+import androidx.databinding.BindingAdapter;
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.irayasoft.pakkruti.R;
 public class Util {
     //loading image using glide librray
-    public static void LoadImage(ImageView imageView, String url, CircularProgressDrawable progressDrawable ){
+    public static void loadImage(ImageView imageView, String url, CircularProgressDrawable progressDrawable ){
         RequestOptions requestOptions=new RequestOptions()
                 .placeholder(progressDrawable)
                 .error(R.drawable.dogimg);
@@ -24,5 +26,10 @@ public class Util {
         circularProgressDrawable.start();
         return circularProgressDrawable;
 
+    }
+    //methode to set image from layout
+    @BindingAdapter("android:imageUrl")
+    public static void loadImage(ImageView imageView,String url){
+        loadImage(imageView,url,getProgressDrawable(imageView.getContext()));
     }
 }

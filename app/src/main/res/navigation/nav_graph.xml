@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_List_Detail"
             app:destination="@id/recipeDetailFragment" />
+        <action
+            android:id="@+id/action_listSetting"
+            app:destination="@id/settingFragment" />
     </fragment>
     <fragment
         android:id="@+id/recipeDetailFragment"
@@ -27,4 +30,9 @@
             app:argType="integer"
             android:defaultValue="0" />
     </fragment>
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.irayasoft.pakkruti.view.SettingFragment"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" />
 </navigation>

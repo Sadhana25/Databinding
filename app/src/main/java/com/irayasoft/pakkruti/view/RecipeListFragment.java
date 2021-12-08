@@ -15,6 +15,9 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -31,13 +34,13 @@ public class RecipeListFragment extends Fragment {
     private FragmentRecipeListBinding binding;
     private DogsListAdapter dogsListAdapter = new DogsListAdapter(new ArrayList<>());
     ListViewModel listViewModel;
-
     public RecipeListFragment() {
         // Required empty public constructor
     }
-
+    //
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         binding = FragmentRecipeListBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -53,7 +56,6 @@ public class RecipeListFragment extends Fragment {
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.recyclerView.setAdapter(dogsListAdapter);
         observeViewModel();
-
         //swiperefreshfunctionality
         binding.swipeRefreshLayout.setOnRefreshListener(() -> {
             binding.recyclerView.setVisibility(View.GONE);
@@ -64,6 +66,7 @@ public class RecipeListFragment extends Fragment {
 
 
         });
+
         //********************safe args Implementation*******************
 //        binding.fabList.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -114,5 +117,28 @@ public class RecipeListFragment extends Fragment {
 
             }
         });
+    }
+    //************************for setting screen>>> menu setting
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.list_menu,menu);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_setting:
+                if(isAdded()){
+                    Navigation.findNavController(getView()).navigate(RecipeListFragmentDirections.actionListSetting());
+                }
+                break;
+        }
+
+
+
+        return super.onOptionsItemSelected(item);
     }
 }

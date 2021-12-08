@@ -1,72 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="72dp"
-    android:id="@+id/con_listLayout"
-    android:orientation="horizontal">
-    <ImageView
-        android:src="@drawable/dogimg"
-        app:civ_border_width="1dp"
-        app:civ_border_color="@color/purple_700"
-        android:id="@+id/img_profile"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="9dp"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        />
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="243dp"
-        android:layout_height="69dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/img_del"
-        app:layout_constraintEnd_toStartOf="@+id/img_del"
-        app:layout_constraintHorizontal_bias="0.3"
-        app:layout_constraintStart_toEndOf="@+id/img_profile"
-        app:layout_constraintTop_toTopOf="@+id/img_del"
-        app:layout_constraintVertical_bias="0.488">
-
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="dog"
+            type="com.irayasoft.pakkruti.model.DogBreed" />
+        <variable
+            name="listner"
+            type="com.irayasoft.pakkruti.view.CustomClickListner" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:id="@+id/con_listLayout"
+        android:orientation="horizontal"
+        android:onClick="@{listner::dogclick}">
+        <!-- here is the temp test to store uiid-->
         <TextView
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:id="@+id/tv_tittle"
+            android:text="@{String.valueOf(dog.uuid)}"
+            android:visibility="gone"
+            android:id="@+id/tv_tempid"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_gravity="start"
-            android:text="Tittle" />
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints" />
+        <ImageView
+            android:imageUrl="@{dog.imgUrl}"
+            app:civ_border_width="1dp"
+            app:civ_border_color="@color/purple_700"
+            android:id="@+id/img_profile"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="9dp"
+            app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+            app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            />
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="243dp"
+            android:layout_height="69dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/img_del"
+            app:layout_constraintEnd_toStartOf="@+id/img_del"
+            app:layout_constraintHorizontal_bias="0.3"
+            app:layout_constraintStart_toEndOf="@+id/img_profile"
+            app:layout_constraintTop_toTopOf="@+id/img_del"
+            app:layout_constraintVertical_bias="0.488">
 
-        <TextView
-            android:textSize="14dp"
-            android:id="@+id/tv_desc"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:layout_gravity="start"
-            android:text="Description" />
-    </LinearLayout>
+            <TextView
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:id="@+id/tv_tittle"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_gravity="start"
+                android:text="@{dog.breed_name}" />
 
-    <ImageView
-        android:id="@+id/img_del"
-        android:tint="@color/purple_700"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/ic_baseline_delete_forever_24"
-        tools:ignore="UseAppTint" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:textSize="14dp"
+                android:id="@+id/tv_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_gravity="start"
+                android:text="@{dog.breedFor}" />
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/img_del"
+            android:tint="@color/purple_700"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/ic_baseline_delete_forever_24"
+            tools:ignore="UseAppTint" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

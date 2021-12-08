@@ -1,79 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.RecipeDetailFragment">
-    <ImageView
-        app:civ_border_color="@color/purple_700"
-        app:civ_border_width="1dp"
-        android:id="@+id/img_dog"
-        android:layout_width="370dp"
-        android:layout_height="179dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@tools:sample/backgrounds/scenic" />
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:id="@+id/tv_dogname"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="16dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_dog" />
+    <data>
+        <variable
+            name="dog"
+            type="com.irayasoft.pakkruti.model.DogBreed" />
+        <variable
+            name="pallete"
+            type="com.irayasoft.pakkruti.model.DogPallete" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@{pallete.color}"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.RecipeDetailFragment">
+        <ImageView
+            android:imageUrl="@{dog.imgUrl}"
+            app:civ_border_color="@color/purple_700"
+            app:civ_border_width="1dp"
+            android:id="@+id/img_dog"
+            android:layout_width="370dp"
+            android:layout_height="179dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
-    <TextView
-        android:gravity="center"
-        android:textSize="14sp"
-        android:id="@+id/tv_dog_purpose"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="16dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/tv_temperment"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_dogname" />
+        <TextView
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:id="@+id/tv_dogname"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="16dp"
+            android:text="@{dog.breed_name}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_dog" />
 
-    <TextView
-        android:gravity="center"
-        android:textSize="14sp"
-        android:id="@+id/tv_temperment"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="16dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_dog_purpose" />
+        <TextView
+            android:gravity="center"
+            android:textSize="14sp"
+            android:id="@+id/tv_dog_purpose"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:text="@{dog.breedFor}"
+            app:layout_constraintBottom_toTopOf="@+id/tv_temperment"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_dogname" />
 
-    <TextView
-        android:gravity="center"
-        android:textSize="14sp"
-        android:id="@+id/tv_doglifespan"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="16dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_temperment" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:gravity="center"
+            android:textSize="14sp"
+            android:id="@+id/tv_temperment"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:text="@{dog.temparament}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_dog_purpose" />
+        <TextView
+            android:gravity="center"
+            android:textSize="14sp"
+            android:id="@+id/tv_doglifespan"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:text="@{dog.lifespan}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_temperment" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
